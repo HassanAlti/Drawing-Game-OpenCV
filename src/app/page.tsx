@@ -1,13 +1,14 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDraw } from "../hooks/useDraw";
 import { ChromePicker } from "react-color";
 import { Draw } from "@/lib/types";
+import Button from "@/components/Button";
 
 export default function Home() {
   const [color, setColor] = useState<string>("#000");
-  const { canvasRef, onMouseDown, clear } = useDraw(drawLine);
+  const { canvasRef, onMouseDown, clear, exportImage } = useDraw(drawLine);
 
   function drawLine({ prevPoint, currentPoint, ctx }: Draw) {
     const { x: currX, y: currY } = currentPoint;
@@ -29,16 +30,24 @@ export default function Home() {
   }
 
   return (
-    <div className="w-screen h-screen bg-white flex justify-center items-center">
-      <div className="flex flex-col gap-10 pr-10">
+    <div className="absolute inset-0 -z-10 h-full w-full  bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] flex justify-start items-center">
+      <div className="flex flex-col gap-10 pr-10 ml-5">
         <ChromePicker color={color} onChange={(e) => setColor(e.hex)} />
         <button
           type="button"
-          className="p-2 rounded-md border border-black"
+          className="text-white bg-black p-2 rounded-md border border-white"
           onClick={clear}
         >
           Clear canvas
         </button>
+        <button
+          type="button"
+          className="text-white bg-black p-2 rounded-md border border-white"
+          onClick={exportImage}
+        >
+          Export
+        </button>
+        <Button />
       </div>
       <canvas
         ref={canvasRef}
