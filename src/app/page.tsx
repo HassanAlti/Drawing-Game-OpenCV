@@ -4,7 +4,6 @@ import { FC, useEffect, useState } from "react";
 import { useDraw } from "../hooks/useDraw";
 import { ChromePicker } from "react-color";
 import { Draw } from "@/lib/types";
-import Button from "@/components/Button";
 
 export default function Home() {
   const [color, setColor] = useState<string>("#000");
@@ -47,7 +46,6 @@ export default function Home() {
         >
           Export
         </button>
-        <Button />
       </div>
       <canvas
         ref={canvasRef}
