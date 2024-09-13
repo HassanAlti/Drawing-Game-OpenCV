@@ -165,7 +165,7 @@ export default function Home() {
           <div className="flex">
             <div className="flex flex-col-reverse">
               <span className="mt-5 text-gray-500 ml-auto mr-auto">
-                Line width doesn't matter. Overall shape does.
+                Line width does not matter. Overall shape does.
               </span>
               <button
                 type="button"
