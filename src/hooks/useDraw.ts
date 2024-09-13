@@ -21,36 +21,6 @@ export const useDraw = (
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
 
-  const exportImage = async () => {
-    const canvas = canvasRef.current as HTMLCanvasElement;
-    if (!canvas) return;
-
-    // in order to apply white background, we need to make a new canvas
-    const newCanvas = document.createElement("canvas");
-    newCanvas.width = canvas.width;
-    newCanvas.height = canvas.height;
-    const newCtx = newCanvas.getContext("2d");
-
-    if (!newCtx) return;
-    newCtx.fillStyle = "#ffffff";
-    newCtx.fillRect(0, 0, newCanvas.width, newCanvas.height);
-
-    newCtx.drawImage(canvas, 0, 0);
-
-    const image = newCanvas.toDataURL("image/png");
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    await fetch("/api/save-image", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ image }),
-    });
-  };
-
   useEffect(() => {
     const computePointInCanvas = (e: MouseEvent) => {
       const canvas = canvasRef.current;
@@ -90,5 +60,5 @@ export const useDraw = (
     };
   }, [onDraw]);
 
-  return { canvasRef, onMouseDown, clear, exportImage };
+  return { canvasRef, onMouseDown, clear };
 };

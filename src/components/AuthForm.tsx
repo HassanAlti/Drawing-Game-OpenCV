@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import GoogleLogo from "../../public/google.svg";
 import { signIn } from "@/auth";
 
 const AuthForm = () => {
@@ -29,9 +28,16 @@ const AuthForm = () => {
           >
             <Button
               type="submit"
-              className="text-16 bg-gray-400 hover:bg-slate-300"
+              className="text-16 bg-gray-400 hover:bg-slate-300 flex items-center justify-between p-5"
             >
-              Github SignIn
+              <span>Github SignIn</span>
+              <Image
+                src="/images/github-logo.svg"
+                alt="Github"
+                width={30}
+                height={30}
+                className=""
+              />
             </Button>
           </form>
 
@@ -46,9 +52,16 @@ const AuthForm = () => {
           >
             <Button
               type="submit"
-              className="text-16 bg-gray-400 hover:bg-slate-300"
+              className="text-16 bg-gray-400 hover:bg-slate-300 flex items-center justify-between p-5"
             >
-              Google SignIn
+              <span>Google SignIn</span>
+              <Image
+                src="/images/google.svg"
+                alt="Google"
+                width={30}
+                height={30}
+                className=""
+              />
             </Button>
           </form>
         </div>
