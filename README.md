@@ -1,36 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Drawing Game with Image Similarity
 
-## Getting Started
+This is a web-based drawing game that uses a simple canvas for user drawings and leverages OpenCV to compare two images and return a similarity score.
 
-First, run the development server:
+## How It Works
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The core functionality of this app relies on OpenCV contour matching. Contour detection calculates the points of a shape and compares the sets of points in two images to derive a similarity score. This score indicates how closely the images resemble each other.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You can see visual examples taken from me during development of how this process works under the hood here:
+- ![Contour Example 1](public/images/cmp3.png)
+- ![Contour Example 2](public/images/cmp2.png)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This method is currently the most effective approach I've found for this type of application. However, it is not very accurate as it is a mathematical comparison that lacks human-like precision. For more information on how this works, you might explore [Hausdorff Distance](https://en.wikipedia.org/wiki/Hausdorff_distance).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The starting point for this approach was discussed in the [OpenCV Forum](https://forum.opencv.org/t/using-opencv-for-image-similarity/6444/13).
