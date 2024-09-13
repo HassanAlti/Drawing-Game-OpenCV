@@ -25,6 +25,43 @@ export default function Home() {
     useState<boolean>(false);
   const { canvasRef, onMouseDown, clear } = useDraw(drawLine);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [canvasWidth, setCanvasWidth] = useState<number>(400);
+  const [canvasHeight, setCanvasHeight] = useState<number>(400);
+
+  // Update window width state
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 1024px)");
+
+    const handleResize = () => {
+      setIsMobile(mediaQuery.matches);
+    };
+
+    // Set initial state
+    handleResize();
+
+    // Attach the event listener
+    mediaQuery.addEventListener("change", handleResize);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    let width = 400;
+    let height = 400;
+
+    if (window.matchMedia("(min-width: 1500px)").matches) {
+      width = 650;
+      height = 650;
+    } else if (window.matchMedia("(min-width: 1200px)").matches) {
+      width = 500;
+      height = 500;
+    }
+
+    setCanvasWidth(width);
+    setCanvasHeight(height);
+  }, [isMobile]);
 
   // high score for current image
   useEffect(() => {
@@ -63,23 +100,6 @@ export default function Home() {
       setHighScoreImage(score);
     }
   }, [score]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.matchMedia("(max-width: 1024px)").matches);
-    };
-
-    // Call once to set the initial state
-    handleResize();
-
-    // Attach the event listener
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      // Cleanup event listener on unmount
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -182,20 +202,8 @@ export default function Home() {
                   ref={canvasRef}
                   onMouseDown={onMouseDown}
                   className="border border-black"
-                  width={
-                    window.matchMedia("(min-width: 1500px)").matches
-                      ? 650
-                      : window.matchMedia("(min-width: 1200px)").matches
-                      ? 500
-                      : 400
-                  }
-                  height={
-                    window.matchMedia("(min-width: 1500px)").matches
-                      ? 650
-                      : window.matchMedia("(min-width: 1200px)").matches
-                      ? 500
-                      : 400
-                  }
+                  width={canvasWidth}
+                  height={canvasHeight}
                 />
               </div>
 
@@ -244,21 +252,9 @@ export default function Home() {
               ) : highScoreImage !== null ? (
                 <b> {"  " + highScoreImage.toFixed(1)} </b>
               ) : (
-                "N/A"
+                "  N/A"
               )}
             </h1>
-
-            <Link
-              href="https://github.com/HassanAlti/Drawing-Game-OpenCV"
-              className="mt-auto"
-            >
-              <Image
-                src="/images/github.svg"
-                alt="Github"
-                width={75}
-                height={75}
-              ></Image>
-            </Link>
           </div>
         </div>
       )}
