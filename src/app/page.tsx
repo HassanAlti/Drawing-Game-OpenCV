@@ -24,6 +24,7 @@ export default function Home() {
   const [loadingAllTimeHighScore, setLoadingAllTimeHighScore] =
     useState<boolean>(false);
   const { canvasRef, onMouseDown, clear } = useDraw(drawLine);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   // high score for current image
   useEffect(() => {
@@ -61,7 +62,20 @@ export default function Home() {
     if (score > highScoreImage) {
       setHighScoreImage(score);
     }
-  }, [score]);
+  }, [score, allTimeHighScoreState, highScoreImage]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -137,7 +151,6 @@ export default function Home() {
     ctx.arc(startPoint.x, startPoint.y, 2, 0, 2 * Math.PI);
     ctx.fill();
   }
-  const isMobile = window.innerWidth <= 768;
 
   return (
     <div>
