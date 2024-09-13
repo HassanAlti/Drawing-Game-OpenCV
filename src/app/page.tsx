@@ -62,7 +62,7 @@ export default function Home() {
     if (score > highScoreImage) {
       setHighScoreImage(score);
     }
-  }, []);
+  }, [score]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -205,7 +205,7 @@ export default function Home() {
             <Button onClick={sendImage}></Button>
 
             <h1>
-              Current Score{" "}
+              Current Score:{" "}
               {loadingFetch ? "Loading..." : <b> {score.toFixed(1)} </b>}
             </h1>
             <h1>
