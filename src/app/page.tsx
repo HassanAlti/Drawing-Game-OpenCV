@@ -28,7 +28,6 @@ export default function Home() {
   const [canvasWidth, setCanvasWidth] = useState<number>(400);
   const [canvasHeight, setCanvasHeight] = useState<number>(400);
 
-  // Update window width state
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 1024px)");
 
@@ -36,10 +35,8 @@ export default function Home() {
       setIsMobile(mediaQuery.matches);
     };
 
-    // Set initial state
     handleResize();
 
-    // Attach the event listener
     mediaQuery.addEventListener("change", handleResize);
 
     return () => {
@@ -52,11 +49,11 @@ export default function Home() {
     let height = 400;
 
     if (window.matchMedia("(min-width: 1500px)").matches) {
-      width = 650;
-      height = 650;
+      width = 600;
+      height = 600;
     } else if (window.matchMedia("(min-width: 1200px)").matches) {
-      width = 500;
-      height = 500;
+      width = 400;
+      height = 400;
     }
 
     setCanvasWidth(width);
