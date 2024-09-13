@@ -158,8 +158,8 @@ export default function Home() {
     <div>
       {isMobile ? (
         <div className="flex justify-center items-center h-screen bg-gray-100">
-          <h1 className="text-xl text-gray-700">
-            Please open this application on your PC for the best experience.
+          <h1 className="text-xl text-gray-700 p-5 ml-auto mr-auto">
+            Please open this application on your PC for the best experience. 🙂
           </h1>
         </div>
       ) : (
