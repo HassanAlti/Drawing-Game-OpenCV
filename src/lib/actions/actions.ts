@@ -33,6 +33,8 @@ export const highScoreForImage = async (image: string) => {
 
     const userId = session.user.id;
 
+    console.log("session", session);
+
     const result = await client
       .db("ai-drawing-game")
       .collection("scores")
