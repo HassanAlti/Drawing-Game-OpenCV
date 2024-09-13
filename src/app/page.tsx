@@ -62,7 +62,7 @@ export default function Home() {
     if (score > highScoreImage) {
       setHighScoreImage(score);
     }
-  }, [score, allTimeHighScoreState, highScoreImage]);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
