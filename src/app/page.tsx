@@ -66,18 +66,19 @@ export default function Home() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 1000);
-
-      console.log("isMobile:", isMobile);
-      console.log("window.innerWidth:", window.innerWidth);
+      setIsMobile(window.matchMedia("(max-width: 1024px)").matches);
     };
 
+    // Call once to set the initial state
     handleResize();
-    // window.addEventListener("resize", handleResize);
 
-    // return () => {
-    //   window.removeEventListener("resize", handleResize);
-    // };
+    // Attach the event listener
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      // Cleanup event listener on unmount
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
