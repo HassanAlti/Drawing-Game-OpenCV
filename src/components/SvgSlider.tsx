@@ -38,8 +38,6 @@ export default function SvgSlider({ setCurrentImage }: SvgSliderProps) {
   const handleNext = () => {
     // Loop back to the first image if at the last image
     setCurrentIndex((prevIndex) => (prevIndex + 1) % imageKeys.length);
-
-    console.log(imageKeys[currentIndex]);
   };
 
   const currentImage = imageKeys[currentIndex];

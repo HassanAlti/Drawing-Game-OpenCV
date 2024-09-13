@@ -66,15 +66,18 @@ export default function Home() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 1000);
+
+      console.log("isMobile:", isMobile);
+      console.log("window.innerWidth:", window.innerWidth);
     };
 
-    handleResize(); // Initial check
-    window.addEventListener("resize", handleResize);
+    handleResize();
+    // window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    // return () => {
+    //   window.removeEventListener("resize", handleResize);
+    // };
   }, []);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
