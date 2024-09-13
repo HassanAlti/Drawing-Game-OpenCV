@@ -174,7 +174,19 @@ export default function Home() {
             <SvgSlider setCurrentImage={setCurrentImage} />
           </div>
 
-          <div className="flex flex-col gap-10 pr-10 ml-5 h-full justify-start items-center pt-10 border-l border-l-black pl-10 min-w-fit">
+          <div className="flex flex-col gap-10 pr-10 ml-5 h-full justify-start items-center pt-10 border-l border-l-black pl-10 min-w-fit ">
+            <span className="mt-5 text-gray-500 ml-auto mr-auto">
+              ! Scores are not very accurate, and may vary.
+            </span>
+            <span className=" text-gray-500 ml-auto mr-auto">
+              Check out:{" "}
+              <Link
+                className="text-blue-700"
+                href="https://github.com/HassanAlti/Drawing-Game-OpenCV/blob/main/README.md"
+              >
+                README
+              </Link>{" "}
+            </span>
             <h1>Compare Your Drawing</h1>
             <h1>Score Scale: 0 = Bad 👎🏻, 5000 = Good 👍🏻</h1>
             <Button onClick={sendImage}></Button>
@@ -205,7 +217,10 @@ export default function Home() {
               )}
             </h1>
 
-            <Link href="https://github.com/HassanAlti" className="mt-auto">
+            <Link
+              href="https://github.com/HassanAlti/Drawing-Game-OpenCV"
+              className="mt-auto"
+            >
               <Image
                 src="/images/github.svg"
                 alt="Github"
