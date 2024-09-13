@@ -41,7 +41,7 @@ export default function SvgSlider({ setCurrentImage }: SvgSliderProps) {
   };
 
   const currentImage = imageKeys[currentIndex];
-  setCurrentImage(imageKeys[currentIndex]);
+  setCurrentImage(currentImage);
   const currentDifficulty: "easy" | "medium" | "hard" = images[currentImage];
 
   const difficultyColor =
@@ -52,19 +52,23 @@ export default function SvgSlider({ setCurrentImage }: SvgSliderProps) {
       : "text-red-500";
 
   return (
-    <div className="relative flex flex-col items-center ml-5 mr-5 mt-auto mb-auto md:mt-0 md:ml-5">
+    <div className="relative flex flex-col items-center justify-center w-full max-w-[650px] h-full mx-auto">
       {/* Slider controls */}
-      <button onClick={handlePrev} className="absolute left-0">
+      <button
+        onClick={handlePrev}
+        className="absolute left-0 top-1/2 transform -translate-y-1/2"
+      >
         <Image
           src="/images/left-arrow.svg"
           alt="Left Arrow"
           width={50}
           height={50}
+          className="object-contain"
         />
       </button>
 
       {/* Display the current image */}
-      <div className="flex flex-col items-center justify-center aspect-square w-[650px]">
+      <div className="flex flex-col items-center justify-center w-full max-w-[500px] h-auto aspect-square mx-5">
         <Image
           src={`/images/drawings/${currentImage}`}
           alt={`Drawing ${currentIndex + 1}`}
@@ -79,12 +83,16 @@ export default function SvgSlider({ setCurrentImage }: SvgSliderProps) {
         </p>
       </div>
 
-      <button onClick={handleNext} className="absolute right-0">
+      <button
+        onClick={handleNext}
+        className="absolute right-0 top-1/2 transform -translate-y-1/2"
+      >
         <Image
           src="/images/right-arrow.svg"
           alt="Right Arrow"
           width={50}
           height={50}
+          className="object-contain"
         />
       </button>
     </div>

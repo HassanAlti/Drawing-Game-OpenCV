@@ -158,59 +158,75 @@ export default function Home() {
     <div>
       {isMobile ? (
         <div className="flex justify-center items-center h-screen bg-gray-100">
-          <h1 className="text-xl text-gray-700 p-5 ml-auto mr-auto">
+          <h1 className="text-xl text-gray-700 p-5 mx-auto">
             Please open this application on your PC for the best experience. 🙂
           </h1>
         </div>
       ) : (
-        <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] flex justify-around items-center ml-5 mr-5">
-          <div className="flex">
-            <div className="flex flex-col-reverse">
-              <span className="mt-5 text-gray-500 ml-auto mr-auto">
-                Line width does not matter. Overall shape does.
-              </span>
-              <button
-                type="button"
-                className="text-white bg-black p-2 rounded-md border border-white mt-5 ml-auto mr-auto"
-                onClick={clear}
-              >
-                Clear canvas
-              </button>
+        <div className="absolute inset-0 -z-10 w-full h-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:1rem_1rem] flex justify-between items-center">
+          <div className="flex flex-col items-center justify-center w-[75%] h-full p-5">
+            <div className="flex items-center justify-center mb-5">
+              <div className="flex flex-col-reverse items-center mx-5">
+                <span className="mt-5 text-gray-500 text-center">
+                  Line width does not matter. Overall shape does.
+                </span>
+                <button
+                  type="button"
+                  className="text-white bg-black p-2 rounded-md border border-white mt-5 mx-auto"
+                  onClick={clear}
+                >
+                  Clear canvas
+                </button>
 
-              <canvas
-                ref={canvasRef}
-                onMouseDown={onMouseDown}
-                width={750}
-                height={750}
-                className="border border-black rounded-md"
-              />
+                <canvas
+                  ref={canvasRef}
+                  onMouseDown={onMouseDown}
+                  className="border border-black"
+                  width={
+                    window.matchMedia("(min-width: 1500px)").matches
+                      ? 650
+                      : window.matchMedia("(min-width: 1200px)").matches
+                      ? 500
+                      : 400
+                  }
+                  height={
+                    window.matchMedia("(min-width: 1500px)").matches
+                      ? 650
+                      : window.matchMedia("(min-width: 1200px)").matches
+                      ? 500
+                      : 400
+                  }
+                />
+              </div>
+
+              <SvgSlider setCurrentImage={setCurrentImage} />
             </div>
-
-            <SvgSlider setCurrentImage={setCurrentImage} />
           </div>
 
-          <div className="flex flex-col gap-10 pr-10 ml-5 h-full justify-start items-center pt-10 border-l border-l-black pl-10 min-w-fit ">
-            <span className="mt-5 text-gray-500 ml-auto mr-auto">
-              ! Scores are not very accurate, and may vary.
+          <div className="fixed right-0 top-0 h-full flex flex-col gap-[2.5rem] mr-[2%] pl-[2%] py-[2.5rem] border-l border-l-black min-w-[15%] max-w-[20%] overflow-auto items-center">
+            <span className="mt-5 text-gray-500 text-center">
+              ! Scores are not very accurate and may vary.
             </span>
-            <span className=" text-gray-500 ml-auto mr-auto">
+            <span className="text-gray-500 text-center">
               Check out:{" "}
               <Link
                 className="text-blue-700"
                 href="https://github.com/HassanAlti/Drawing-Game-OpenCV/blob/main/README.md"
               >
                 README
-              </Link>{" "}
+              </Link>
             </span>
-            <h1>Compare Your Drawing</h1>
-            <h1>Score Scale: 0 = Bad 👎🏻, 5000 = Good 👍🏻</h1>
+            <h1 className="text-center">Compare Your Drawing</h1>
+            <h1 className="text-center">
+              Score Scale: 0 = Bad 👎🏻, 5000 = Good 👍🏻
+            </h1>
             <Button onClick={sendImage}></Button>
 
-            <h1>
+            <h1 className="text-center">
               Latest Score:{" "}
               {loadingFetch ? "Loading..." : <b> {score.toFixed(1)} </b>}
             </h1>
-            <h1>
+            <h1 className="text-center">
               Your All-Time High Score:{" "}
               {loadingAllTimeHighScore ? (
                 "  Loading..."
@@ -220,7 +236,7 @@ export default function Home() {
                 "  N/A"
               )}
             </h1>
-            <h1>
+            <h1 className="text-center">
               Your High Score For{" "}
               {currentImage.replace(".svg", "").toUpperCase()}:
               {loadingHighScore ? (
