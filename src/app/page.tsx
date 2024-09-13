@@ -63,6 +63,12 @@ export default function Home() {
     }
   }, [score]);
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  if (!baseUrl) {
+    throw new Error("BASE_URL is not defined");
+  }
+
   const sendImage = async () => {
     setIsLoadingFetch(true);
     const canvas = canvasRef.current as HTMLCanvasElement;
@@ -85,7 +91,7 @@ export default function Home() {
 
     try {
       // Call the compare-images API
-      const response = await fetch("http://localhost:8080/compare-images", {
+      const response = await fetch(`${baseUrl}/api/compare-images`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -131,68 +137,85 @@ export default function Home() {
     ctx.arc(startPoint.x, startPoint.y, 2, 0, 2 * Math.PI);
     ctx.fill();
   }
+  const isMobile = window.innerWidth <= 768;
 
   return (
-    <div className="absolute inset-0 -z-10 h-full w-full  bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] flex justify-around items-center ml-5 mr-5">
-      <div className="flex">
-        <div className="flex flex-col-reverse">
-          <span className="mt-5 text-gray-500 ml-auto mr-auto">
-            Line width doesn't matter. Overall shape does.
-          </span>
-          <button
-            type="button"
-            className="text-white bg-black p-2 rounded-md border border-white mt-5 ml-auto mr-auto"
-            onClick={clear}
-          >
-            Clear canvas
-          </button>
-
-          <canvas
-            ref={canvasRef}
-            onMouseDown={onMouseDown}
-            width={750}
-            height={750}
-            className="border border-black rounded-md"
-          />
+    <div>
+      {isMobile ? (
+        <div className="flex justify-center items-center h-screen bg-gray-100">
+          <h1 className="text-xl text-gray-700">
+            Please open this application on your PC for the best experience.
+          </h1>
         </div>
+      ) : (
+        <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] flex justify-around items-center ml-5 mr-5">
+          <div className="flex">
+            <div className="flex flex-col-reverse">
+              <span className="mt-5 text-gray-500 ml-auto mr-auto">
+                Line width doesn't matter. Overall shape does.
+              </span>
+              <button
+                type="button"
+                className="text-white bg-black p-2 rounded-md border border-white mt-5 ml-auto mr-auto"
+                onClick={clear}
+              >
+                Clear canvas
+              </button>
 
-        <SvgSlider setCurrentImage={setCurrentImage} />
-      </div>
+              <canvas
+                ref={canvasRef}
+                onMouseDown={onMouseDown}
+                width={750}
+                height={750}
+                className="border border-black rounded-md"
+              />
+            </div>
 
-      <div className="flex flex-col gap-10 pr-10 ml-5 h-full justify-start items-center pt-10 border-l border-l-black pl-10 min-w-fit">
-        <h1>Compare Your Drawing</h1>
-        <h1>Score Scale: 0 = Bad 👎🏻, 5000 = Good 👍🏻</h1>
-        <Button onClick={sendImage}></Button>
+            <SvgSlider setCurrentImage={setCurrentImage} />
+          </div>
 
-        <h1>
-          Current Score{" "}
-          {loadingFetch ? "Loading..." : <b> {score.toFixed(1)} </b>}
-        </h1>
-        <h1>
-          Your All-Time High Score:{" "}
-          {loadingAllTimeHighScore ? (
-            "  Loading..."
-          ) : allTimeHighScoreState !== null ? (
-            <b> {" " + allTimeHighScoreState.toFixed(1)}</b>
-          ) : (
-            "  N/A"
-          )}
-        </h1>
-        <h1>
-          Your High Score For {currentImage.replace(".svg", "").toUpperCase()}:
-          {loadingHighScore ? (
-            "  Loading..."
-          ) : highScoreImage !== null ? (
-            <b> {"  " + highScoreImage.toFixed(1)} </b>
-          ) : (
-            "  N/A"
-          )}
-        </h1>
+          <div className="flex flex-col gap-10 pr-10 ml-5 h-full justify-start items-center pt-10 border-l border-l-black pl-10 min-w-fit">
+            <h1>Compare Your Drawing</h1>
+            <h1>Score Scale: 0 = Bad 👎🏻, 5000 = Good 👍🏻</h1>
+            <Button onClick={sendImage}></Button>
 
-        <Link href="https://github.com/HassanAlti" className="mt-auto">
-          <Image src="/github.svg" alt="Github" width={75} height={75}></Image>
-        </Link>
-      </div>
+            <h1>
+              Current Score{" "}
+              {loadingFetch ? "Loading..." : <b> {score.toFixed(1)} </b>}
+            </h1>
+            <h1>
+              Your All-Time High Score:{" "}
+              {loadingAllTimeHighScore ? (
+                "  Loading..."
+              ) : allTimeHighScoreState !== null ? (
+                <b> {" " + allTimeHighScoreState.toFixed(1)}</b>
+              ) : (
+                "  N/A"
+              )}
+            </h1>
+            <h1>
+              Your High Score For{" "}
+              {currentImage.replace(".svg", "").toUpperCase()}:
+              {loadingHighScore ? (
+                "  Loading..."
+              ) : highScoreImage !== null ? (
+                <b> {"  " + highScoreImage.toFixed(1)} </b>
+              ) : (
+                "N/A"
+              )}
+            </h1>
+
+            <Link href="https://github.com/HassanAlti" className="mt-auto">
+              <Image
+                src="/images/github.svg"
+                alt="Github"
+                width={75}
+                height={75}
+              ></Image>
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

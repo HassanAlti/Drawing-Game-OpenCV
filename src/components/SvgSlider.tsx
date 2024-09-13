@@ -58,7 +58,7 @@ export default function SvgSlider({ setCurrentImage }: SvgSliderProps) {
       : "text-red-500";
 
   return (
-    <div className="relative flex flex-col items-center ml-5 mr-5 mt-auto mb-auto">
+    <div className="relative flex flex-col items-center ml-5 mr-5 mt-auto mb-auto md:mt-0 md:ml-5">
       {/* Slider controls */}
       <button onClick={handlePrev} className="absolute left-0">
         <Image
