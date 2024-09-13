@@ -12,7 +12,7 @@ export default auth((req) => {
 
 export const config = {
   matcher: [
-    // Exclude paths for static files and assets
+    // static files can be served without auth
     "/((?!api|_next/static|_next/image|favicon.ico|public|images).*)",
   ],
 };

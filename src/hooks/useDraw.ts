@@ -49,11 +49,10 @@ export const useDraw = (
       prevPoint.current = null;
     };
 
-    // Add event listeners
     canvasRef.current?.addEventListener("mousemove", handler);
     window.addEventListener("mouseup", mouseUpHandler);
 
-    // Remove event listeners
+    // Remove event listeners (cleanup)
     return () => {
       canvasRef.current?.removeEventListener("mousemove", handler);
       window.removeEventListener("mouseup", mouseUpHandler);

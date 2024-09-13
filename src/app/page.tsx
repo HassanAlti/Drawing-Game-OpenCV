@@ -88,7 +88,7 @@ export default function Home() {
     const canvas = canvasRef.current as HTMLCanvasElement;
     if (!canvas) return;
 
-    // Create a new canvas to apply a white background
+    // Create a new canvas to apply a white background (opencv works best with white background on images)
     const newCanvas = document.createElement("canvas");
     newCanvas.width = canvas.width;
     newCanvas.height = canvas.height;
@@ -100,11 +100,9 @@ export default function Home() {
 
     newCtx.drawImage(canvas, 0, 0);
 
-    // Convert the canvas content to a Base64 image
     const imageBase64 = newCanvas.toDataURL("image/png");
 
     try {
-      // Call the compare-images API
       const response = await fetch(`${baseUrl}/api/compare-images`, {
         method: "POST",
         headers: {
@@ -112,7 +110,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           imageBase64,
-          originalImageName: currentImage, // Specify the original image name here
+          originalImageName: currentImage,
         }),
       });
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-// Object storing SVG filenames and their corresponding difficulty levels
 const images: { [key: string]: "easy" | "medium" | "hard" } = {
   "chef.svg": "hard",
   "ambulance.svg": "hard",
@@ -20,7 +19,6 @@ const images: { [key: string]: "easy" | "medium" | "hard" } = {
   "umbrella.svg": "medium",
 };
 
-// Convert object keys to an array for easy indexing
 const imageKeys = Object.keys(images);
 
 interface SvgSliderProps {
@@ -44,12 +42,10 @@ export default function SvgSlider({ setCurrentImage }: SvgSliderProps) {
     console.log(imageKeys[currentIndex]);
   };
 
-  // Get the current image name and difficulty
   const currentImage = imageKeys[currentIndex];
   setCurrentImage(imageKeys[currentIndex]);
   const currentDifficulty: "easy" | "medium" | "hard" = images[currentImage];
 
-  // Get difficulty color based on level
   const difficultyColor =
     currentDifficulty === "easy"
       ? "text-green-500"

@@ -9,5 +9,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
 });
 
-// Add this line to export the correct Session type
+// correct session type
 export { type Session } from "next-auth";
