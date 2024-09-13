@@ -9,5 +9,15 @@ export default {
     authorized: async ({ auth }) => {
       return !!auth;
     },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.id = token.id as string;
+      return session;
+    },
   },
 } satisfies NextAuthConfig;
