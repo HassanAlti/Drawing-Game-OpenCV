@@ -2,10 +2,11 @@
 
 import client from "@/lib/db";
 import { auth } from "../../auth";
+import { Session } from "next-auth";
 
 export const saveScore = async (score: number, currentImage: string) => {
   try {
-    const session = await auth();
+    const session = (await auth()) as Session;
     if (!session || !session.user) {
       throw new Error("User not authenticated");
     }
@@ -26,7 +27,7 @@ export const saveScore = async (score: number, currentImage: string) => {
 
 export const highScoreForImage = async (image: string) => {
   try {
-    const session = await auth();
+    const session = (await auth()) as Session;
     if (!session || !session.user) {
       throw new Error("User not authenticated");
     }
@@ -51,7 +52,7 @@ export const highScoreForImage = async (image: string) => {
 
 export const allTimeHighScore = async () => {
   try {
-    const session = await auth();
+    const session = (await auth()) as Session;
     if (!session || !session.user) {
       throw new Error("User not authenticated");
     }

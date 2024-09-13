@@ -8,3 +8,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" },
   ...authConfig,
 });
+
+// Add this line to export the correct Session type
+export { type Session } from "next-auth";
