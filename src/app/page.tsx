@@ -173,6 +173,9 @@ export default function Home() {
 
   return (
     <div>
+        <h1 className="py-10">
+            <b>21/11/24 - APLLICATION TEMPORARILY DISABLED (I LOST THE SERVER-SIDE MATH FORMULA, WORKING ON GETTING IT BACK)</b>
+          </h1>
       {isMobile ? (
         <div className="flex justify-center items-center h-screen bg-gray-100">
           <h1 className="text-xl text-gray-700 p-5 mx-auto">
